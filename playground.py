@@ -8,7 +8,7 @@ from agno.tools.yfinance import YFinanceTools
 agent_storage: str = "tmp/agents.db"
 
 web_agent = Agent(
-    name="Web Agent",
+    name="GOnzalo Delgado",
     model=Groq("llama3-8b-8192", api_key = "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"),
     tools=[DuckDuckGoTools()],
     instructions=["Always include sources"],
