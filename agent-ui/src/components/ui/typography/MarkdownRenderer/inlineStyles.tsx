@@ -157,27 +157,30 @@ const Img = ({ src, alt }: ImgProps) => {
     <div className="w-full max-w-xl">
       {error ? (
         <div className="flex h-40 flex-col items-center justify-center gap-2 rounded-md bg-secondary/50 text-muted">
-          <Paragraph className="text-primary">Image unavailable</Paragraph>
-          <Link
-            href={src}
-            target="_blank"
-            className="max-w-md truncate underline"
-          >
-            {src}
-          </Link>
-        </div>
+        <Paragraph className="text-primary">Image unavailable</Paragraph>
+        <Link
+          href={typeof src === 'string' ? src : URL.createObjectURL(src)}
+          target="_blank"
+          className="max-w-md truncate underline"
+        >
+          {/* Cambiamos el texto aquí porque un objeto Blob no se puede mostrar.
+            Mostramos la URL si es un string, o un texto genérico si es un Blob.
+          */}
+          {typeof src === 'string' ? src : 'Ver contenido'}
+        </Link>
+      </div>
       ) : (
-        <Image
-          src={src}
-          width={96}
-          height={56}
-          alt={alt ?? 'Rendered image'}
-          className="size-full rounded-md object-cover"
-          onError={() => setError(true)}
-          unoptimized
-        />
+      <Image
+        src={typeof src === 'string' ? src : URL.createObjectURL(src)}
+        width={96}
+        height={56}
+        alt={alt ?? 'Rendered image'}
+        className="size-full rounded-md object-cover"
+        onError={() => setError(true)}
+        unoptimized
+      />
       )}
-    </div>
+      </div>
   )
 }
 
